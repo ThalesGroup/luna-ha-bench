@@ -9,6 +9,8 @@
 *
 \****************************************************************************/
 
+#include <cstdio>
+
 #include "top.hpp"
 
 Top::Top(const std::string _identificationString) : identificationString(_identificationString)

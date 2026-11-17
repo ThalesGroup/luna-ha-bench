@@ -256,6 +256,8 @@ endif
 # ############################################################################
 INCLUDES+=\
 	-I $(LUNA_CLIENT_DIRECTORY)/samples/include \
+	-I $(LUNA_CLIENT_DIRECTORY)/sdk/include \
+	-I $(LUNA_CLIENT_DIRECTORY)/include \
 	-I $(INPUT_DIRECTORY)
 
 # ############################################################################
@@ -402,7 +404,7 @@ $(OUTPUT_DIRECTORY)/$(TARGET): $(OBJECT_FILES) | $(OUTPUT_DIRECTORY)
 	@echo "# Link the object files"
 	@echo "- ----------------------------------------------------------------------------"
 	@echo ""
-	$(LINKER) $(LD_FLAGS) $(LD_LIBS) $(OBJECT_FILES) -o $@
+	$(LINKER) $(LD_FLAGS) $(OBJECT_FILES) $(LD_LIBS) -o $@
 	@echo ""
 
 $(OUTPUT_DIRECTORY):
