@@ -39,6 +39,10 @@ set -e
 
 TEST_DURATION=5
 RESULT_FILE=result.txt
+HA_BENCH_BINARY="${HA_BENCH_BINARY:-./out/ha-bench}"
+if [ ! -x "${HA_BENCH_BINARY}" ] && [ -x "./ha-bench" ]; then
+    HA_BENCH_BINARY="./ha-bench"
+fi
 
 # #############################################################################
 # Main
@@ -114,7 +118,8 @@ for SHARE_MODE in share no-share; do
         echo "# ############################################################################" >>"${RESULT_FILE}"
         echo "" >>"${RESULT_FILE}"
 
-        ./ha-bench 0 "${CO_PASSWORD}" time-limited "${TEST_DURATION}" "${SHARE_MODE}" "${USE_CASE}" &>>"${RESULT_FILE}"
+        read -r -a SCENARII <<<"${USE_CASE}"
+        "${HA_BENCH_BINARY}" 0 "${CO_PASSWORD}" time-limited "${TEST_DURATION}" "${SHARE_MODE}" "${SCENARII[@]}" &>>"${RESULT_FILE}"
 
         echo "" >>"${RESULT_FILE}"
     done
